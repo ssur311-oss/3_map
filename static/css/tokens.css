@@ -1,0 +1,48 @@
+/* 디자인 가이드 v0.2 3-4 · 4 · 5장 토큰. 값은 이 파일에서만 바꾼다 */
+:root {
+  --ink: #1E2433;
+  --ink-muted: #5E6678;
+  --fog: #F4F6F8;
+  --surface: #FFFFFF;
+  --line: #DDE1E8;
+
+  --person-1: #14808A;
+  --person-1-tint: #DCEFF1;
+  --person-2: #7A4FB5;
+  --person-2-tint: #E9E1F4;
+  --common: #F2C14E;
+  --common-tint: #FCF1D3;
+
+  --error: #B3261E;
+  --error-tint: #FBE9E7;
+
+  --font-title: 'Jua', 'Gowun Dodum', sans-serif;
+  --font-ui: 'Pretendard Variable', Pretendard, -apple-system, 'Noto Sans KR', sans-serif;
+
+  --fs-display: 34px; --lh-display: 44px;
+  --fs-title-1: 28px; --lh-title-1: 38px;
+  --fs-title-2: 22px; --lh-title-2: 32px;
+  --fs-body: 16px; --lh-body: 26px;
+  --fs-caption: 13px; --lh-caption: 20px;
+
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 64px;
+
+  --r-chip: 999px; --r-ctl: 16px; --r-card: 20px; --r-sheet: 28px;
+  --sticker: 3px 3px 0 var(--ink);
+  --float: 0 -6px 24px rgba(30, 36, 51, .12);
+
+  --touch: 44px;
+  --btn-h: 52px;
+  --gutter: 20px;
+  --nav-h: 60px;
+}
+
+/* 부모님 모드(가이드 8장): 글자 18 이상, 터치 52 이상 */
+body.big {
+  --fs-body: 18px; --lh-body: 30px;
+  --fs-caption: 15px; --lh-caption: 22px;
+  --touch: 52px;
+  --btn-h: 56px;
+}
+
+@media (min-width: 600px) { :root { --gutter: 32px; } }

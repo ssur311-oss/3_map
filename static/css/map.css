@@ -1,0 +1,78 @@
+/* ── 지도 핀 (가이드 7-5 ①②) ── */
+.map-box { position: relative; width: 100%; height: 100%; }
+.map-canvas { width: 100%; height: 100%; }
+
+.pin {
+  /* 핀 그림은 32×40이지만 터치 영역은 44 이상으로 잡는다 */
+  position: relative; width: var(--touch); height: calc(var(--touch) + 4px);
+  display: grid; place-items: end center; padding: 0; border: 0; background: none; cursor: pointer;
+}
+.pin-body {
+  /* 그림은 작게(24×30) 두어 핀끼리 덜 겹치게 하고, 터치 영역은 .pin이 44 이상으로 지킨다 */
+  position: relative; width: 24px; height: 30px; display: grid; place-items: center; padding-bottom: 6px;
+  clip-path: path("M12 0C5.4 0 0 5.3 0 11.7 0 20.3 12 30 12 30S24 20.3 24 11.7C24 5.3 18.6 0 12 0Z");
+  font-size: 10px; font-weight: 800; line-height: 1;
+}
+.pin-a .pin-body { background: var(--person-1); color: #fff; }
+.pin-b .pin-body { background: var(--person-2); color: #fff; }
+.pin-both .pin-body { background: var(--common); color: var(--ink); font-size: 8px; letter-spacing: -1px; }
+.pin-neutral .pin-body { background: var(--ink); }
+.pin-neutral .pin-body::before { content: ""; position: absolute; inset: 1.5px; background: #fff; clip-path: inherit; }
+.pin-neutral .pin-body span { position: relative; z-index: 1; color: var(--ink); }
+/* 실제 지도 타일 위에서도 묻히지 않게 흰 테두리와 그림자를 준다 */
+.pin { filter: drop-shadow(0 1px 1px rgba(30, 36, 51, .45)) drop-shadow(0 0 1px #fff); }
+
+/* 코스 장소: 번호 + 이름 말풍선. 색은 취향 주인, 도형(●◆)도 같이 넣어 색만으로 구분하지 않는다 */
+.pin-stop { width: auto; height: auto; min-width: var(--touch); min-height: var(--touch); padding-bottom: 6px; }
+.pin-stop .pin-body {
+  width: auto; height: 26px; padding: 0 8px 0 6px; gap: 3px; display: inline-flex; align-items: center;
+  clip-path: none; border-radius: 9px; border: 1.5px solid #fff; white-space: nowrap;
+  background: var(--ink); color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0;
+}
+.pin-stop .pin-body i { font-style: normal; font-size: 9px; letter-spacing: -1px; }
+.pin-stop .pin-body b { font-weight: 800; }
+.pin-stop::after {
+  content: ""; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+  border: 6px solid transparent; border-bottom: 0; border-top-color: var(--pin-c, var(--ink));
+}
+.pin-stop.owner-a { --pin-c: var(--person-1); }
+.pin-stop.owner-b { --pin-c: var(--person-2); }
+.pin-stop.owner-a .pin-body { background: var(--person-1); }
+.pin-stop.owner-b .pin-body { background: var(--person-2); }
+.pin-stop.owner-both .pin-body { background: var(--ink); }
+.pin-stop.owner-both .pin-body i { color: var(--common); }
+.pin-stop.selected .pin-body { transform: scale(1.12); }
+.pin-search .pin-body { background: var(--ink-muted); }
+.pin-search .pin-body::before { content: ""; position: absolute; inset: 1.5px; background: #fff; clip-path: inherit; }
+.pin-search .pin-body span { position: relative; z-index: 1; color: var(--ink); }
+.pin-util .pin-body { background: #fff; color: var(--ink); border-radius: 8px; clip-path: none; width: 28px; height: 28px; padding: 0; border: 1.5px solid var(--ink); font-size: 12px; }
+.pin.selected { z-index: 10; }
+/* clip-path 안쪽 filter는 잘리므로 링은 부모(.pin)에 그린다 */
+.pin.selected { filter: drop-shadow(2px 0 0 var(--ink)) drop-shadow(-2px 0 0 var(--ink)) drop-shadow(0 -2px 0 var(--ink)) drop-shadow(0 2px 0 var(--ink)); }
+.pin.selected .pin-body { transform: scale(1.25); transform-origin: bottom center; }
+.pin-bubble {
+  position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%);
+  background: var(--ink); color: #fff; padding: 4px 10px; border-radius: 10px; font-size: 13px; font-weight: 600; white-space: nowrap;
+}
+.pin.drop { animation: drop 300ms ease-out 1 both; }
+@keyframes drop { from { transform: translateY(-90%); opacity: 0; } }
+
+/* 간이 지도 (지도 키가 없을 때): 방문 순서만 보여주는 그림 */
+.mini-map { position: relative; width: 100%; height: 100%; overflow: hidden; background: linear-gradient(#EEF1F4 1px, transparent 1px) 0 0 / 40px 40px, linear-gradient(90deg, #EEF1F4 1px, #F7F8FA 1px) 0 0 / 40px 40px; }
+.mini-map svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mini-map .pin { position: absolute; transform: translate(-50%, -100%); }
+.mini-map .note { position: absolute; left: 8px; bottom: 8px; right: 8px; font-size: 12px; color: var(--ink-muted); }
+
+.map-legend {
+  position: absolute; left: 8px; top: 8px; z-index: 20; background: rgba(255,255,255,.95); border: 1px solid var(--line);
+  border-radius: 12px; padding: 6px 10px; font-size: 12px; display: flex; gap: 10px; flex-wrap: wrap; max-width: calc(100% - 16px);
+}
+.map-tools { position: absolute; right: 8px; top: 8px; z-index: 20; display: grid; gap: 6px; }
+.map-filter { position: absolute; left: 8px; right: 8px; bottom: 32px; z-index: 20; }
+.map-filter .chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+
+.mini-card {
+  position: absolute; left: 8px; right: 8px; bottom: 8px; z-index: 25; background: var(--surface);
+  border-radius: var(--r-card); border: 1px solid var(--line); box-shadow: var(--float); padding: var(--s4);
+}
+@media (min-width: 960px) { .mini-card { left: auto; width: 360px; } }

@@ -1,0 +1,131 @@
+/* ── 버튼 (가이드 9장) ── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s2);
+  min-height: var(--btn-h); padding: 0 var(--s5);
+  border-radius: var(--r-ctl); border: 1px solid var(--line);
+  background: var(--surface); color: var(--ink);
+  font-weight: 600; text-decoration: none; cursor: pointer;
+}
+.btn-primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+.btn-sm { min-height: var(--touch); padding: 0 var(--s4); font-size: 15px; }
+.btn-block { width: 100%; }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.link-btn {
+  min-height: var(--touch); padding: 0 var(--s2); border: 0; background: none;
+  text-decoration: underline; cursor: pointer; font-weight: 600;
+}
+
+/* 하단 고정 액션바: 기본 버튼은 화면에 1개만 */
+.actionbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  background: var(--surface); box-shadow: var(--float);
+  padding: var(--s3) var(--gutter) calc(var(--s3) + env(safe-area-inset-bottom));
+}
+.actionbar .inner { max-width: 640px; margin: 0 auto; display: flex; gap: var(--s2); }
+.actionbar .inner > .btn-primary { flex: 1; }
+
+/* ── 카드 ── */
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: var(--s5); }
+.card-tight { padding: var(--s4); }
+.sticker { border: 2px solid var(--ink); box-shadow: var(--sticker); }
+
+/* ── 선택 카드 (스티커 스타일) ── */
+.choices { display: grid; gap: var(--s3); }
+.choice {
+  position: relative; display: flex; align-items: center; gap: var(--s3);
+  min-height: 56px; padding: var(--s3) var(--s4);
+  background: var(--surface); border: 2px solid var(--ink); border-radius: var(--r-ctl);
+  box-shadow: var(--sticker); cursor: pointer; text-align: left; width: 100%;
+}
+.choice input { position: absolute; opacity: 0; pointer-events: none; }
+.choice .check {
+  flex: none; width: 24px; height: 24px; border-radius: 8px; border: 2px solid var(--ink);
+  display: grid; place-items: center; font-size: 14px; line-height: 1;
+}
+.choice.on { background: var(--common-tint); }
+.choice.on .check { background: var(--ink); color: #fff; }
+.choice.on .check::after { content: "✓"; }
+.choice:has(input:focus-visible) { outline: 2px solid var(--ink); outline-offset: 3px; }
+.choice.bounce { animation: bounce 300ms ease-out 1; }
+@keyframes bounce { 0% { transform: scale(1); } 40% { transform: scale(1.03) translateY(-3px); } 100% { transform: none; } }
+
+/* ── 칩 ── */
+.chips { display: flex; flex-wrap: wrap; gap: var(--s2); }
+.chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-height: 36px; padding: 4px 14px; border-radius: var(--r-chip);
+  border: 1px solid var(--line); background: var(--surface); font-size: 15px;
+}
+.chip-common { background: var(--common-tint); border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink); }
+.chip-a { background: var(--person-1-tint); border-color: transparent; }
+.chip-b { background: var(--person-2-tint); border-color: transparent; }
+button.chip { cursor: pointer; min-height: var(--touch); }
+button.chip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+.chip-off { color: var(--ink-muted); background: var(--fog); }
+
+/* ── 이름 라벨: 항상 도형 + 이름 ── */
+.who { display: inline-flex; align-items: center; gap: 4px; font-weight: 600; white-space: nowrap; }
+.shape-a::before { content: "●"; color: var(--person-1); }
+.shape-b::before { content: "◆"; color: var(--person-2); }
+.shape-both::before { content: "●◆"; color: var(--ink); letter-spacing: -2px; margin-right: 2px; }
+.shape-neutral::before { content: "·"; font-weight: 900; }
+.tag {
+  display: inline-flex; align-items: center; min-height: 24px; padding: 0 8px; border-radius: var(--r-chip);
+  font-size: var(--fs-caption); background: var(--fog); color: var(--ink-muted); font-weight: 600;
+}
+.tag-demo { background: var(--common-tint); color: var(--ink); }
+
+/* ── 진행 바 / 단계 표시 ── */
+.progress { height: 8px; background: var(--line); border-radius: var(--r-chip); overflow: hidden; }
+.progress > span { display: block; height: 100%; background: var(--ink); border-radius: inherit; transition: width 300ms ease-out; }
+.stepper { display: flex; gap: 4px; overflow-x: auto; padding: var(--s2) 0; scrollbar-width: none; }
+.stepper li {
+  list-style: none; flex: 1 0 auto; text-align: center; font-size: var(--fs-caption); font-weight: 600;
+  color: var(--ink-muted); padding-top: 8px; border-top: 4px solid var(--line); min-width: 52px;
+}
+.stepper li.done { border-color: var(--ink-muted); }
+.stepper li.now { color: var(--ink); border-color: var(--ink); }
+.stepper ol { display: contents; }
+
+/* ── 입력 ── */
+.field { display: grid; gap: 6px; }
+.field label { font-weight: 600; }
+.input {
+  min-height: var(--btn-h); width: 100%; padding: 0 var(--s4);
+  border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--surface);
+}
+.field-error { color: var(--error); font-size: var(--fs-caption); }
+.input[aria-invalid="true"] { border-color: var(--error); }
+
+/* ── 상태 박스 ── */
+.notice { background: var(--common-tint); border-radius: var(--r-ctl); padding: var(--s3) var(--s4); }
+.error-box { background: var(--error-tint); color: var(--error); border-radius: var(--r-ctl); padding: var(--s3) var(--s4); }
+.empty { text-align: left; padding: var(--s6) var(--s5); }
+.loading { display: flex; align-items: center; gap: var(--s3); padding: var(--s5); color: var(--ink-muted); }
+.loading::before {
+  content: ""; width: 20px; height: 20px; border-radius: 50%;
+  border: 3px solid var(--line); border-top-color: var(--ink); animation: spin 800ms linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── 토스트 ── */
+.toast {
+  position: fixed; left: 50%; bottom: calc(var(--btn-h) + 40px); transform: translateX(-50%);
+  z-index: 60; background: var(--ink); color: #fff; padding: var(--s3) var(--s5);
+  border-radius: var(--r-ctl); max-width: calc(100% - 40px); font-weight: 600;
+}
+
+/* ── 바텀시트 ── */
+.sheet-backdrop { position: fixed; inset: 0; background: rgba(30, 36, 51, .4); z-index: 50; }
+.sheet {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 51; max-height: 85vh; overflow: auto;
+  background: var(--surface); border-radius: var(--r-sheet) var(--r-sheet) 0 0;
+  box-shadow: var(--float); padding: var(--s3) var(--gutter) var(--s6);
+  animation: sheet-up 250ms ease-out 1;
+}
+.sheet .handle { width: 40px; height: 5px; border-radius: 3px; background: var(--line); margin: 0 auto var(--s4); }
+@keyframes sheet-up { from { transform: translateY(40px); opacity: .6; } }
+@media (min-width: 960px) {
+  .sheet { left: 50%; right: auto; width: 520px; transform: translateX(-50%); bottom: 10vh; border-radius: var(--r-sheet); }
+  @keyframes sheet-up { from { opacity: .6; } }
+}

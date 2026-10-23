@@ -1,0 +1,51 @@
+/* ── 상단 네비 ── */
+.nav { position: sticky; top: 0; z-index: 40; background: var(--surface); border-bottom: 1px solid var(--line); }
+.nav .wrap { display: flex; align-items: center; gap: var(--s3); height: var(--nav-h); }
+.logo { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-title); font-size: 21px; text-decoration: none; min-height: var(--touch); }
+.logo-mark { width: 30px; height: 30px; flex: none; }
+.nav-links { display: none; gap: var(--s1); }
+.nav-links a { display: inline-flex; align-items: center; min-height: var(--touch); padding: 0 var(--s3); text-decoration: none; font-weight: 600; color: var(--ink-muted); border-radius: 12px; }
+.nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--ink); background: var(--fog); }
+.nav-tools { margin-left: auto; display: flex; align-items: center; gap: var(--s2); }
+.icon-btn { min-width: var(--touch); min-height: var(--touch); display: inline-grid; place-items: center; border: 1px solid var(--line); background: var(--surface); border-radius: 12px; cursor: pointer; padding: 0 10px; font-weight: 600; font-size: 14px; }
+.icon-btn[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+.nav-cta { display: none; }
+.menu-panel { border-top: 1px solid var(--line); padding: var(--s2) var(--gutter) var(--s4); background: var(--surface); }
+.menu-panel a { display: flex; align-items: center; min-height: var(--touch); text-decoration: none; font-weight: 600; }
+@media (min-width: 960px) {
+  .nav-links { display: flex; margin-left: var(--s5); }
+  .nav-cta { display: inline-flex; }
+  .menu-toggle, .menu-panel { display: none !important; }
+}
+
+/* 여행방 서브바: 진행 단계 */
+.trip-bar { background: var(--surface); border-bottom: 1px solid var(--line); }
+.trip-bar .wrap { padding-top: var(--s2); padding-bottom: var(--s1); }
+.trip-bar .meta { display: flex; gap: var(--s2); align-items: center; flex-wrap: wrap; font-size: 14px; }
+
+/* ── 홈 W0: 화면 전체가 코스 만들기 ── */
+.maker { min-height: calc(100vh - var(--nav-h)); min-height: calc(100dvh - var(--nav-h)); display: grid; align-items: center; padding: var(--s5) 0; background: var(--fog); }
+.maker-card { background: var(--surface); border: 2px solid var(--ink); border-radius: var(--r-card); box-shadow: var(--sticker); padding: var(--s5); }
+.maker-head > * + * { margin-top: var(--s3); }
+.maker-head h1 { font-size: var(--fs-display); line-height: var(--lh-display); }
+.maker-grid { display: grid; gap: var(--s4); }
+.maker textarea.input { min-height: 96px; padding: var(--s3) var(--s4); resize: vertical; }
+.maker-actions { display: grid; gap: var(--s2); }
+@media (min-width: 768px) {
+  .maker-card { padding: var(--s6); }
+  .maker-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .maker-actions { grid-template-columns: 2fr 1fr; }
+}
+@media (min-width: 1024px) {
+  .maker-card { padding: var(--s7); }
+  .maker-head h1 { font-size: 44px; line-height: 56px; }
+  .maker-grid { grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr; }
+}
+
+/* ── 2열 화면 (데스크톱) ── */
+.split { display: grid; gap: var(--s5); }
+@media (min-width: 960px) {
+  .split { grid-template-columns: minmax(0, 1fr) minmax(0, 420px); align-items: start; }
+  .split-even { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .sticky-side { position: sticky; top: calc(var(--nav-h) + 80px); }
+}
